@@ -15,18 +15,26 @@ end_time = 3000
 # replace any comma with a dot
 inductance_input = inductance_input.replace(",", ".")
 # ragex to extract the value and the unit
-_value = float(re.findall(r"0?\.?\d+", inductance_input)[0])
-_unit = re.findall(r"[a-z]H$", inductance_input)[0]
 
-# convert the unit to Henry
-if (_unit == "mH"):
-    _value = _value / 1000
-elif (_unit == "uH"):
-    _value = _value / 1000000
-elif (_unit == "nH"):
-    _value = _value / 1000000000
-elif (_unit == "pH"):
-    _value = _value / 1000000000000
+
+def unit(_value, _unit):
+  if (_unit == "m"):
+      _value = _value / 1000
+  elif (_unit == "u"):
+      _value = _value / 1000000
+  elif (_unit == "n"):
+      _value = _value / 1000000000
+  elif (_unit == "p"):
+      _value = _value / 1000000000000
+  return _value
+__regex_harry = r"[a-z]"
+
+__harris_units = re.findall(__regex_harry, inductance_input)[0]
+if(__harris_units):
+  _value = unit(float(re.findall(r"0?\.?\d+", inductance_input)[0]),__harris_units)
+else:
+  _value = float(re.findall(r"0?\.?\d+", inductance_input)[0])
+  
 
 _steps  = np.linspace(1, end_time, max_steps_def)  # 100 steps from 0 to 1
 
