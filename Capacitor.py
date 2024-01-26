@@ -3,9 +3,9 @@ import regex as re
 import matplotlib.pyplot as plt
 
 # discharge voltage of a capacitor at a given time
-volt_begin = "12000mV"
-capacitance = "100uF"
-load = "100000mR"
+volt_begin = "100V"
+capacitance = "2F"
+load = "1R"
 times_of_interest = [0.0, 1.0, 2.0, 3.0, 4.0]
 framesTotal = 50000
 time_step = 0.0001
@@ -37,7 +37,7 @@ except:
   _real_volt_begin = float(re.findall(_regex, volt_begin)[0])
   _real_capacitance = float(re.findall(_regex, capacitance)[0])
   _real_load = float(re.findall(_regex, load)[0])
-  
+
 discharge = lambda time:   _real_volt_begin * np.exp((time*-1) / (_real_capacitance * _real_load))
 
 time = np.linspace(0, framesTotal*time_step, framesTotal)
