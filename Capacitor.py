@@ -3,21 +3,24 @@ import regex as re
 import matplotlib.pyplot as plt
 
 # discharge voltage of a capacitor at a given time
-volt_begin = "5000mV"
-capacitance = "1000mF"
-load = "1kR"
+volt_begin = "12000mV"
+capacitance = "100uF"
+load = "100000mR"
 times_of_interest = [0.0, 1.0, 2.0, 3.0, 4.0]
 framesTotal = 50000
 time_step = 0.0001
 
 _regex = r"0?\.?\d+"
 # regex for the first letter after the value
-_regex2 = r"[a-z]"
+_regex2 = r"[a-z|M]"
 
 
 def unit(_value, _unit):
-  
-  if (_unit == "m"):
+  if(_unit == "M"): 
+    _value = _value * 1000000
+  elif(_unit == "k"):
+    _value = _value * 1000
+  elif (_unit == "m"):
       _value = _value / 1000
   elif (_unit == "u"):
       _value = _value / 1000000

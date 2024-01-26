@@ -18,7 +18,11 @@ inductance_input = inductance_input.replace(",", ".")
 
 
 def unit(_value, _unit):
-  if (_unit == "m"):
+  if(_unit == "M"): 
+    _value = _value * 1000000
+  elif(_unit == "k"):
+    _value = _value * 1000
+  elif (_unit == "m"):
       _value = _value / 1000
   elif (_unit == "u"):
       _value = _value / 1000000
@@ -27,13 +31,15 @@ def unit(_value, _unit):
   elif (_unit == "p"):
       _value = _value / 1000000000000
   return _value
-__regex_harry = r"[a-z]"
 
-__harris_units = re.findall(__regex_harry, inductance_input)[0]
-if(__harris_units):
+__regex_harry = r"[a-z|M]"
+try: 
+  __harris_units = re.findall(__regex_harry, inductance_input)[0]
   _value = unit(float(re.findall(r"0?\.?\d+", inductance_input)[0]),__harris_units)
-else:
+except: 
   _value = float(re.findall(r"0?\.?\d+", inductance_input)[0])
+   
+  
   
 
 _steps  = np.linspace(1, end_time, max_steps_def)  # 100 steps from 0 to 1

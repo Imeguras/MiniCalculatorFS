@@ -1,6 +1,9 @@
-
 def unit(_value, _unit):
-  if (_unit == "m"):
+  if(_unit == "M"): 
+    _value = _value * 1000000
+  elif(_unit == "k"):
+    _value = _value * 1000
+  elif (_unit == "m"):
       _value = _value / 1000
   elif (_unit == "u"):
       _value = _value / 1000000
