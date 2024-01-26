@@ -29,11 +29,15 @@ def unit(_value, _unit):
   elif (_unit == "p"):
       _value = _value / 1000000000000
   return _value
-
-_real_volt_begin = unit(float(re.findall(_regex, volt_begin)[0]), (re.findall(_regex2, volt_begin)[0]))
-_real_capacitance = unit(float(re.findall(_regex, capacitance)[0]), (re.findall(_regex2, capacitance)[0]))
-_real_load = unit(float(re.findall(_regex, load)[0]), (re.findall(_regex2, load)[0]))
-
+try: 
+  _real_volt_begin = unit(float(re.findall(_regex, volt_begin)[0]), (re.findall(_regex2, volt_begin)[0]))
+  _real_capacitance = unit(float(re.findall(_regex, capacitance)[0]), (re.findall(_regex2, capacitance)[0]))
+  _real_load = unit(float(re.findall(_regex, load)[0]), (re.findall(_regex2, load)[0]))
+except: 
+  _real_volt_begin = float(re.findall(_regex, volt_begin)[0])
+  _real_capacitance = float(re.findall(_regex, capacitance)[0])
+  _real_load = float(re.findall(_regex, load)[0])
+  
 discharge = lambda time:   _real_volt_begin * np.exp((time*-1) / (_real_capacitance * _real_load))
 
 time = np.linspace(0, framesTotal*time_step, framesTotal)
